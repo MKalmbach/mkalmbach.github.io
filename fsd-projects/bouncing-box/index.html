@@ -1,135 +1,130 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <link rel="icon" type="image/x-icon"  href="img/4-color puzzle.png" >
+    <meta charset="utf-8" />
+    <title>Bouncing Box</title>
+    <script src="jquery.min.js"></script>
+    <style>
+      body {
+        background-image: url(/fsd-projects/bouncing-box/img/BPSTIL-3.jpeg);
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
 
-<head>
-	<meta charset="utf-8">
-	<title>Bouncing Box</title>
-	<script src="jquery.min.js"></script>
-	<style>
-		.box {
-			width: 70px;
-			height: 70px;
-			background-color: teal;
-			font-size: 300%;
-			text-align: center;
-			user-select: none;
-			display: block;
-			position: absolute;
-			top: 100px;
-			/* Change me! */
-			left: 0px;
-		}
+      .box {
+        width: 70px;
+        height: 70px;
+        background-color: teal;
+        font-size: 300%;
+        text-align: center;
+        user-select: none;
+        display: block;
+        position: absolute;
+        top: 100px;
+        /* Change me! */
+        left: 0px;
+      }
 
-		.board {
-			height: 100vh;
-		}
-	</style>
-	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+      .board {
+        height: 100vh;
+      }
+    </style>
+    <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+  </head>
 
-</head>
+  <body class="board">
+    
+    <!-- HTML for the box ~ ~ the question mark ? appears in the box -->
+    <!-- use this area to display an image instead of text ??? url ???  image with src info  -->
+    <!-- go back to first lessons for initial webpage -->
+    <div class="box">?</div>
 
-<body class="board">
-	<!-- HTML for the box -->
-	<div class="box">?</div>
+    <script>
+      (function () {
+        "use strict";
+        /* global jQuery */
 
-	<script>
-		(function () 
-		{
-			'use strict'
-			/* global jQuery */
+        //////////////////////////////////////////////////////////////////
+        /////////////////// SETUP DO NOT DELETE //////////////////////////
+        //////////////////////////////////////////////////////////////////
 
-			//////////////////////////////////////////////////////////////////
-			/////////////////// SETUP DO NOT DELETE //////////////////////////
-			//////////////////////////////////////////////////////////////////
+        var box = jQuery(".box"); // reference to the HTML .box element
+        var board = jQuery(".board"); // reference to the HTML .board element
+        var boardWidth = board.width(); // the maximum X-Coordinate of the screen
 
-			var box = jQuery('.box');	// reference to the HTML .box element
-			var board = jQuery('.board');	// reference to the HTML .board element
-			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
+        // Every 50 milliseconds, call the update Function (see below)
+        setInterval(update, 50);
 
-			// Every 50 milliseconds, call the update Function (see below)
-			setInterval(update, 50);
+        // Every time the box is clicked, call the handleBoxClick Function (see below)
+        box.on("click", handleBoxClick);
 
-			// Every time the box is clicked, call the handleBoxClick Function (see below)
-			box.on('click', handleBoxClick);
+        // moves the Box to a new position on the screen along the X-Axis
+        function moveBoxTo(newPositionX) {
+          box.css("left", newPositionX);
+        }
 
-			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPositionX) {
-				box.css("left", newPositionX);
-			}
+        // changes the text displayed on the Box
+        function changeBoxText(newText) {
+          box.text(newText);
+        }
 
-			// changes the text displayed on the Box
-			function changeBoxText(newText) {
-				box.text(newText);
-			}
+        //////////////////////////////////////////////////////////////////
+        /////////////////// YOUR CODE BELOW HERE /////////////////////////
+        //////////////////////////////////////////////////////////////////
 
-			//////////////////////////////////////////////////////////////////
-			/////////////////// YOUR CODE BELOW HERE /////////////////////////
-			//////////////////////////////////////////////////////////////////
-			
-			moveBoxTo(1100); // Moves the box to the x-position 300
+        moveBoxTo(1100); // Moves the box to the x-position 300
 
-			moveBoxTo(boardWidth); // Moves the box to the far right edge        >> PLACEHOLDER ?? <<
+        moveBoxTo(boardWidth); // Moves the box to the far right edge        >> PLACEHOLDER ?? <<
 
+        // TODO 2 - Variable declarations
 
-			// TODO 2 - Variable declarations 
+        var positionX = 0;
+        var points = 0;
+        var speed = 1;
 
-			var positionX 	= 0; 
-			var points 		= 0;
-			var speed		= 1;
+        // TODO - change COLOR of BOX
 
-
-
-			/* 
+        /* 
 			This Function will be called 20 times/second. Each time it is called,
 			it should move the Box to a new location. 
 			
 			If the box drifts off the screen, turn it around! 
 			*/
-			function update() 
-			{
-				positionX = positionX + speed;
+        function update() {
+          positionX = positionX + speed;
 
-				moveBoxTo(positionX);
+          moveBoxTo(positionX);
 
-				// see if image has reached RIGHT wall 
-				if (positionX > boardWidth) 
-				{
-  					// image reached RIGHT wall, so REVERSE direction  
-					speed = speed * -1;
-				}
+          // see if image has reached RIGHT wall
+          if (positionX > boardWidth) {
+            // image reached RIGHT wall, so REVERSE direction
+            speed = speed * -1;
+          }
 
-				// see if image has reached LEFT wall 
-				if (positionX < 0) 
-				{
-  					// image reached LEFT wall, so REVERSE direction  
-					speed = speed * -1;
-				}
+          // see if image has reached LEFT wall
+          if (positionX < 0) {
+            // image reached LEFT wall, so REVERSE direction
+            speed = speed * -1;
+          }
+        } //end update function
 
-			}; //end update function 
-
-
-
-			/* 
+        /* 
 			This Function will be called each time the box is clicked. Each time it is called,
 			it should increase the points total, increase the speed, and move the box to
 			the left side of the screen.
 			*/
-			function handleBoxClick() 
-			{
-				positionX = 0;
+        function handleBoxClick() {
+          positionX = 0;
 
-				points = points + 1;
-				changeBoxText(points);
+          points = points + 1;
+          changeBoxText(points);
 
-				speed = 2*points + 2;
-			};
+          speed = 2 * points + 2;
 
-
-
-
-
-		})();
-	</script>
-</body>
-
+          //box.backgroundColor = "pink"
+        }
+      })();
+    </script>
+  </body>
 </html>
