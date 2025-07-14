@@ -142,9 +142,16 @@
 
           // Make sure box stays within HORIZONTAL boundaries!
 
-          // see if image has reached RIGHT or LEFT wall
           // if (positionX > boardWidth-box.width)   -- THIS SCREWED THINGS UP !
-          if (positionX > boardWidth) or (positionX < 0)
+
+          // see if image has reached RIGHT wall
+          if (positionX > boardWidth) 
+          {
+            // image reached RIGHT wall, so REVERSE direction
+            speedX = speedX * -1;
+          }
+          // see if image has reached LEFT wall
+          if (positionX < 0)
           {
             // image reached RIGHT wall, so REVERSE direction
             speedX = speedX * -1;
@@ -154,9 +161,17 @@
 
           // Make sure box stays within VERTICAL boundaries!
 
-          // see if image has reached BOTTOM wall
           //if (positionY > boardHeight-box.height) -- THIS SCREWED THINGS UP !
-          if (positionY > boardHeight) or (positionY < 0)
+
+          // see if image has reached BOTTOM wall
+          if (positionY > boardHeight)
+          {
+            // image reached BOTTOM wall, so REVERSE direction
+            speedY = speedY * -1;
+          }
+
+          // see if image has reached TOP wall
+          if (positionY < 0)
           {
             // image reached BOTTOM wall, so REVERSE direction
             speedY = speedY * -1;
