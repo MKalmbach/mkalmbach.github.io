@@ -5,18 +5,33 @@
     <meta charset="utf-8" />
     <title>Bouncing Box</title>
     <script src="jquery.min.js"></script>
+
     <style>
-      body {
-        background-image: url(/fsd-projects/bouncing-box/img/BPSTIL-3.jpeg); 
+
+      body 
+      {
+        background-image: url(/fsd-projects/bouncing-box/img/color-boxes.jpeg);
         background-repeat: no-repeat;
         background-size: cover;
       }
 
-      .box {
-        width: 50px; 
-        height: 50px;
-        background-color: yellow;   /* change COLOR of BOX */
-        font-size: 200%;              /* change font size */
+      .box 
+      {
+        width: 70px; 
+        height: 70px;
+
+        /* COLOR of BOX */
+        background-color: brown;   
+        background-color: deeppink;   
+        background-color: deepskyblue;   
+        background-color: darkseagreen;   
+        background-color: orange;   
+        background-color: orangered;   
+        background-color: yellow;   
+        
+        background-color: randomColor;
+
+        font-size: 200%;              /* font size of text inside BOX */
         text-align: center; 
         user-select: none;
 
@@ -29,18 +44,29 @@
         /* 3 lines ABOVE -- are to CENTER contents HORIZ & VERT */
 
         position: absolute;
-        top: 100px;
-        /* Change me! */
-        left: 0px;
-      }
 
-      .board {
+        top: 114px;
+        top: 400px;
+        /* Changing the value of "top:"" attribute makes the box start in a different VERTICAL position. */
+
+        /* However, changing the value for the "left:" attribute does not seem to change anything.  ???*/
+        /* Change me!   ??? what does changing the left: attribute of .box do ??? */
+        left: 0px;
+        left: 4000px;
+        
+      }  /* end of box details */
+
+
+      .board 
+      {
         height: 100vh;
       }
+      
     </style>
     <!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
   </head>
 
+  
   <body class="board">
     
     <!-- HTML for the box ~ ~ the question mark ? appears in the box -->
@@ -57,9 +83,10 @@
         /////////////////// SETUP DO NOT DELETE //////////////////////////
         //////////////////////////////////////////////////////////////////
 
-        var box = jQuery(".box"); // reference to the HTML .box element
-        var board = jQuery(".board"); // reference to the HTML .board element
-        var boardWidth = board.width(); // the maximum X-Coordinate of the screen
+        var box           = jQuery(".box");   // reference to the HTML .box element
+        var board         = jQuery(".board"); // reference to the HTML .board element
+        var boardWidth    = board.width();    // MAX X-coord of screen
+        var boardHeight   = board.height();   // MAX Y-coord of screen
 
         // Every 50 milliseconds, call the update Function (see below)
         setInterval(update, 50);
@@ -68,8 +95,9 @@
         box.on("click", handleBoxClick);
 
         // moves the Box to a new position on the screen along the X-Axis
-        function moveBoxTo(newPositionX) {
+        function moveBoxTo(newPositionX, newPositionY) {
           box.css("left", newPositionX);
+          box.css("top", newPositionY);
         }
 
         // changes the text displayed on the Box
@@ -81,15 +109,22 @@
         /////////////////// YOUR CODE BELOW HERE /////////////////////////
         //////////////////////////////////////////////////////////////////
 
-        moveBoxTo(1100); // Moves the box to the x-position 300
-
+        
         moveBoxTo(boardWidth); // Moves the box to the far right edge        >> PLACEHOLDER ?? <<
+        
+        moveBoxTo(300); // Moves the box to the x-position 300
+
 
         // TODO 2 - Variable declarations
 
         var positionX = 0;
+        var speedX = 1;
+
+        // new code to move box UP & DOWN 
+        var positionY = 500;                // {see if this makes box begin more in the middle }
+        var speedY = 1;
+
         var points = 0;
-        var speed = 1;
 
         
 
@@ -100,21 +135,34 @@
 			If the box drifts off the screen, turn it around! 
 			*/
         function update() {
-          positionX = positionX + speed;
+          positionX = positionX + speedX;
+          positionY = positionY + speedY;
 
-          moveBoxTo(positionX);
+          moveBoxTo( positionX, positionY ) ;
 
-          // see if image has reached RIGHT wall
-          if (positionX > boardWidth) {
+          // Make sure box stays within HORIZONTAL boundaries!
+
+          // see if image has reached RIGHT or LEFT wall
+          // if (positionX > boardWidth-box.width)   -- THIS SCREWED THINGS UP !
+          if (positionX > boardWidth) or (positionX < 0)
+          {
             // image reached RIGHT wall, so REVERSE direction
-            speed = speed * -1;
+            speedX = speedX * -1;
           }
 
-          // see if image has reached LEFT wall
-          if (positionX < 0) {
-            // image reached LEFT wall, so REVERSE direction
-            speed = speed * -1;
+          
+
+          // Make sure box stays within VERTICAL boundaries!
+
+          // see if image has reached BOTTOM wall
+          //if (positionY > boardHeight-box.height) -- THIS SCREWED THINGS UP !
+          if (positionY > boardHeight) or (positionY < 0)
+          {
+            // image reached BOTTOM wall, so REVERSE direction
+            speedY = speedY * -1;
           }
+          
+
         } //end update function
 
         /* 
@@ -122,16 +170,58 @@
 			it should increase the points total, increase the speed, and move the box to
 			the left side of the screen.
 			*/
-        function handleBoxClick() {
-          positionX = 0;
+      function handleBoxClick() 
+      {
+          // change the color of the box to a random color
+          changeBoxColor();   
+          
+          
+
+          // TO DO 
+          // - create random X position between 0 and boardWidth
+          positionX = Math.floor(Math.random() * boardWidth);
+          positionY = Math.floor(Math.random() * boardHeight);
+
+
+
+          // - create random Y position between 0 and boardHeight
 
           points = points + 1;
+
+          console.log("box was clicked " + points + " times")
+          
           changeBoxText(points);
 
-          speed = 2 * points + 2;
-
-          //box.backgroundColor = "pink"
+          speedX = 2 * points + 2;
+          speedY = 2 * points + 2;
+          
+          //box.backgroundColor = "pink" ~ does not work ~ how can you change CSS on a click? 
         }
+
+        // choose a random color from the list of colors 
+        function changeBoxColor()
+        {
+
+          
+
+          const boxColors = [ "brown", "deeppink", "deepskyblue", "darkseagreen","yellow", "orange", "orangered" ]
+          
+          // Generate a random index
+          const randomIndex = Math.floor(Math.random() * boxColors.length);
+
+          // Get the random element
+          const randomColor = boxColors[randomIndex];
+
+          // document.body.style.background. {from AI}
+          box.css("background-color", randomColor);
+
+          console.log(randomColor); // Outputs a random element from myArray
+
+
+        }
+
+
+        // ~ ~ ~ ~ DO NOT change END OF CODE ! ! ~ ~ ~ ~ 
       })();
     </script>
   </body>
