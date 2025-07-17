@@ -20,14 +20,14 @@
         width: 70px; 
         height: 70px;
 
-        /* COLOR of BOX */
+        /* possible colors of BOX */
         background-color: brown;   
         background-color: deeppink;   
-        background-color: deepskyblue;   
         background-color: darkseagreen;   
         background-color: orange;   
         background-color: orangered;   
         background-color: yellow;   
+        background-color: deepskyblue;   
         
         background-color: randomColor;
 
@@ -125,6 +125,7 @@
         var speedY = 1;
 
         var points = 0;
+        
 
         
 
@@ -189,8 +190,6 @@
       {
           // change the color of the box to a random color
           changeBoxColor();   
-          
-          
 
           // TO DO 
           // - create random X position between 0 and boardWidth
@@ -217,23 +216,27 @@
         function changeBoxColor()
         {
 
-          
-
           const boxColors = [ "brown", "deeppink", "deepskyblue", "darkseagreen","yellow", "orange", "orangered" ]
           
-          // Generate a random index
-          const randomIndex = Math.floor(Math.random() * boxColors.length);
+          // Remove the "current" random color from the list
+          // by creating a new list with the current RANDOM color removed.
+          let newColors = boxColors.filter(color => color !== randomColor);
 
-          // Get the random element
-          const randomColor = boxColors[randomIndex];
+          // Choose the next random index from the shorter list 
+          var randomIndex = Math.floor(Math.random() * newColors.length);
 
-          // document.body.style.background. {from AI}
+          // Get the new random color from the shorter list
+          var randomColor = newColors[randomIndex];
+
+          // udate the CSS for the BOX with the RANDOM background color
+          // document.body.style.background. {help from AI}
           box.css("background-color", randomColor);
 
-          console.log(randomColor); // Outputs a random element from myArray
+          // write new random color to console log 
+          console.log("new rando color = " + randomColor); 
 
 
-        }
+        } // end of function changeBoxColor
 
 
         // ~ ~ ~ ~ DO NOT change END OF CODE ! ! ~ ~ ~ ~ 
