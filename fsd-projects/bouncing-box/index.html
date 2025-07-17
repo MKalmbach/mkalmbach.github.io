@@ -23,11 +23,11 @@
         /* possible colors of BOX */
         background-color: brown;   
         background-color: deeppink;   
-        background-color: darkseagreen;   
         background-color: orange;   
         background-color: orangered;   
         background-color: yellow;   
         background-color: deepskyblue;   
+        background-color: darkseagreen;   
         
         background-color: randomColor;
 
@@ -125,6 +125,8 @@
         var speedY = 1;
 
         var points = 0;
+
+        var randomColor = deeppink; 
         
 
         
@@ -182,35 +184,55 @@
         } //end update function
 
         /* 
-			This Function will be called each time the box is clicked. Each time it is called,
-			it should increase the points total, increase the speed, and move the box to
-			the left side of the screen.
+			This Function will be called each time the BOX is clicked. 
+      When called, it will:
+        - change the color of the box 
+        - move box to a random spot on the screen
+        - increase the points total
+        - increase the speed
+			
 			*/
       function handleBoxClick() 
       {
           // change the color of the box to a random color
           changeBoxColor();   
 
-          // TO DO 
-          // - create random X position between 0 and boardWidth
+          
+          // create random X & Y positions for the BOX 
           positionX = Math.floor(Math.random() * boardWidth);
           positionY = Math.floor(Math.random() * boardHeight);
 
-
-
-          // - create random Y position between 0 and boardHeight
-
+          // update points and display new points inside the BOX 
           points = points + 1;
-
-          console.log("box was clicked " + points + " times")
-          
           changeBoxText(points);
 
-          speedX = 2 * points + 2;
-          speedY = 2 * points + 2;
+          // is it possible to get debug info printed out at the console  ??? 
+          console.log("box was clicked " + points + " times") 
           
-          //box.backgroundColor = "pink" ~ does not work ~ how can you change CSS on a click? 
+          // increase the speed on the X & Y axes
+         
+          //speedX = 1 * points + 1;
+          //speedY = 1 * points + 1;
+
+          // ~ ~ ~ EXPERIMENT - increase speed SLOWLY or DO NOT change  ~ ~ ~ 
+          speedX = speedX + 2.5;
+          speedY = speedY + 2.5;
+          // ~ ~ ~ I like this slower speed.  I can only get up to 10 on the box in ONE MINUTE ! ~ ~ ~ 
+          
+          // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * *  * * * * * * * * 
+          // TODO: improve game
+          //
+          //  - How many clicks can you get in 1 minute? 
+          //      -- Game ends after 1 minute. 
+          //      -- HIGH SCORE of top 5 player are displayed ?
+          //
+          //  - Certain number of mis-clicks (3? or 5?) will lower your score.
+          // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * *  * * * * * * * * 
+
+
         }
+
+
 
         // choose a random color from the list of colors 
         function changeBoxColor()
@@ -218,6 +240,9 @@
 
           const boxColors = [ "brown", "deeppink", "deepskyblue", "darkseagreen","yellow", "orange", "orangered" ]
           
+          /*
+          // ~ ~ ~ This attempt to delete the current color from the list did NOT seem to work. ~ ~ ~
+
           // Remove the "current" random color from the list
           // by creating a new list with the current RANDOM color removed.
           let newColors = boxColors.filter(color => color !== randomColor);
@@ -228,11 +253,34 @@
           // Get the new random color from the shorter list
           var randomColor = newColors[randomIndex];
 
+          // ~ ~ ~ ~ ~ ~ ~ ~ ~  ~ ~ ~ ~ ~ ~ ~ ~ ~  ~ ~ ~ ~ ~ ~ ~ ~ ~  ~ ~ ~ ~ ~ ~ ~ ~ ~ 
+          */
+
+
+          // ~ ~ TRYING new way to get DIFFERENT random color on a CLICK ~ ~ 
+
+          // get a "new" random color 
+          var randomIndex = Math.floor(Math.random() * boxColors.length);
+          var newColor    = boxColors[randomIndex];
+
+          // while the newly generated randomColor is the same, try again 
+          while (newColor === randomColor)
+          {
+            randomIndex = Math.floor(Math.random() * boxColors.length);
+
+            newColor    = boxColors[randomIndex];
+          }
+
+
+          // save the "new & different" randomColor 
+          randomColor = newColor;
+
+
           // udate the CSS for the BOX with the RANDOM background color
           // document.body.style.background. {help from AI}
           box.css("background-color", randomColor);
 
-          // write new random color to console log 
+          // write new random color to console log ~ ~ writing to console does NOT seem to work ??? 
           console.log("new rando color = " + randomColor); 
 
 
