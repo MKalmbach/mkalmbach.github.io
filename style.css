@@ -1,18 +1,21 @@
-body {
+body 
+{
     background: rgb(125, 198, 205);
     color: rgb(45, 45, 45);
     padding: 10px;
     font-family: Arial, sans-serif;
-    
 }
 
-#all-contents {
+
+#all-contents 
+{
     max-width: 800px;
     margin: auto;
 }
 
 /* navigation menu */
-nav {
+nav 
+{
     background: rgb(239, 80, 41); 
     margin: 0 auto;
     display: flex;
@@ -22,7 +25,8 @@ nav {
     border-radius: 25px;
 }
 
-h1 {
+h1 
+{
     display: flex;
     align-items: center;
     color: white;
@@ -30,14 +34,16 @@ h1 {
     margin: 0;
 }
 
-#nav-ul {
+#nav-ul 
+{
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
 }
 
-.nav-li {
+.nav-li 
+{
     display: inline-block;
     padding: 0 10px;
 }
@@ -104,11 +110,13 @@ h2, h3 {
   margin-bottom: 10px;
 }
 
-#portfolio li:hover {
-  background: #f0d4c2;
+#portfolio li:hover 
+{
+  background: cyan;
 }
 
-#portfolio a {
+#portfolio a 
+{
   text-decoration: none;
   color: #555353;
 }

@@ -28,8 +28,10 @@
         background-color: yellow;   
         background-color: deepskyblue;   
         background-color: darkseagreen;   
+
+        background-color: whitesmoke;   /* initial BOX color when game begins */
         
-        background-color: randomColor;
+        background-color: randomColor;    /* on each click, a random color from the 7 above is chosen */
 
         font-size: 200%;              /* font size of text inside BOX */
         text-align: center; 
@@ -75,7 +77,8 @@
     <div class="box">?</div>
 
     <script>
-      (function () {
+      (function () 
+      {
         "use strict";
         /* global jQuery */
 
@@ -88,6 +91,8 @@
         var boardWidth    = board.width();    // MAX X-coord of screen
         var boardHeight   = board.height();   // MAX Y-coord of screen
 
+        var boxHypot    = Math.sqrt(box.width**2 + box.height**2);  // determine the hypotenuse of the box 
+
         // Every 50 milliseconds, call the update Function (see below)
         setInterval(update, 50);
 
@@ -95,13 +100,15 @@
         box.on("click", handleBoxClick);
 
         // moves the Box to a new position on the screen along the X-Axis
-        function moveBoxTo(newPositionX, newPositionY) {
+        function moveBoxTo(newPositionX, newPositionY) 
+        {
           box.css("left", newPositionX);
           box.css("top", newPositionY);
         }
 
         // changes the text displayed on the Box
-        function changeBoxText(newText) {
+        function changeBoxText(newText) 
+        {
           box.text(newText);
         }
 
@@ -110,7 +117,8 @@
         //////////////////////////////////////////////////////////////////
 
         
-        moveBoxTo(boardWidth); // Moves the box to the far right edge        >> PLACEHOLDER ?? <<
+
+        moveBoxTo(boardWidth); // Moves the box to the far right edge       
         
         moveBoxTo(300); // Moves the box to the x-position 300
 
@@ -126,18 +134,22 @@
 
         var points = 0;
 
-        var randomColor = deeppink; 
+       
+        var randomColor;      // create a variable to hold the random color of the box       
         
 
         
 
         /* 
-			This Function will be called 20 times/second. Each time it is called,
-			it should move the Box to a new location. 
-			
-			If the box drifts off the screen, turn it around! 
-			*/
-        function update() {
+            ~ ~ ~ update() function ~ ~ ~ 
+
+        This Function will be called 20 times/second. Each time it is called,
+        it should move the Box to a new location. 
+        
+        If the box drifts off the screen, turn it around! 
+        */
+        function update() 
+        {
           positionX = positionX + speedX;
           positionY = positionY + speedY;
 
@@ -146,7 +158,7 @@
           // Make sure box stays within HORIZONTAL boundaries!
 
           // if (positionX > boardWidth-box.width)   -- THIS SCREWED THINGS UP !
-
+          
           // see if image has reached RIGHT wall
           if (positionX > boardWidth) 
           {
@@ -162,8 +174,7 @@
 
           
 
-          // Make sure box stays within VERTICAL boundaries!
-
+          
           //if (positionY > boardHeight-box.height) -- THIS SCREWED THINGS UP !
 
           // see if image has reached BOTTOM wall
@@ -180,10 +191,11 @@
             speedY = speedY * -1;
           }
           
-
         } //end update function
 
-        /* 
+
+
+      /* 
 			This Function will be called each time the BOX is clicked. 
       When called, it will:
         - change the color of the box 
@@ -197,7 +209,6 @@
           // change the color of the box to a random color
           changeBoxColor();   
 
-          
           // create random X & Y positions for the BOX 
           positionX = Math.floor(Math.random() * boardWidth);
           positionY = Math.floor(Math.random() * boardHeight);
@@ -217,10 +228,12 @@
           // ~ ~ ~ EXPERIMENT - increase speed SLOWLY or DO NOT change  ~ ~ ~ 
           speedX = speedX + 2.5;
           speedY = speedY + 2.5;
-          // ~ ~ ~ I like this slower speed.  I can only get up to 10 on the box in ONE MINUTE ! ~ ~ ~ 
+          // ~ ~ ~ I like this slower speed.  I can only get up to 13 on the box in ONE MINUTE ! ~ ~ ~ 
           
           // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * *  * * * * * * * * 
           // TODO: improve game
+          //
+          //  - Add a display of the Box SPEED.  It's supposed to keep increasing, but sometimes it seems to slow down ????
           //
           //  - How many clicks can you get in 1 minute? 
           //      -- Game ends after 1 minute. 
@@ -230,7 +243,7 @@
           // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * *  * * * * * * * * 
 
 
-        }
+        }// end of function handleBoxClick()
 
 
 
@@ -239,25 +252,8 @@
         {
 
           const boxColors = [ "brown", "deeppink", "deepskyblue", "darkseagreen","yellow", "orange", "orangered" ]
-          
-          /*
-          // ~ ~ ~ This attempt to delete the current color from the list did NOT seem to work. ~ ~ ~
 
-          // Remove the "current" random color from the list
-          // by creating a new list with the current RANDOM color removed.
-          let newColors = boxColors.filter(color => color !== randomColor);
-
-          // Choose the next random index from the shorter list 
-          var randomIndex = Math.floor(Math.random() * newColors.length);
-
-          // Get the new random color from the shorter list
-          var randomColor = newColors[randomIndex];
-
-          // ~ ~ ~ ~ ~ ~ ~ ~ ~  ~ ~ ~ ~ ~ ~ ~ ~ ~  ~ ~ ~ ~ ~ ~ ~ ~ ~  ~ ~ ~ ~ ~ ~ ~ ~ ~ 
-          */
-
-
-          // ~ ~ TRYING new way to get DIFFERENT random color on a CLICK ~ ~ 
+          // ~ ~ TRYING new way to get DIFFERENT random color on each CLICK ~ ~ 
 
           // get a "new" random color 
           var randomIndex = Math.floor(Math.random() * boxColors.length);
@@ -283,7 +279,7 @@
           console.log("new rando color = " + randomColor); 
 
 
-        } // end of function changeBoxColor
+        } // end of function changeBoxColor()
 
 
         // ~ ~ ~ ~ DO NOT change END OF CODE ! ! ~ ~ ~ ~ 
