@@ -152,10 +152,12 @@ function moveSnake()
     repositionSquare(currentSnakeSquare);
   }
 
+
+
+
   
   // Before moving the head, check for a new direction from the keyboard input
-  checkForNewDirection();
-   
+  checkForNewDirection();    // ~ ~ ~ I think this goes with TODO 8 ~ ~ ~ 
 
   /* 
     TODO 8: determine the next row and column for the snake's head
@@ -185,7 +187,15 @@ function moveSnake()
 
 }
 
-// TODO 9: Create a new helper function
+
+
+
+
+
+// TODO 9: Create a new helper function ~ ~ ~ REWORK this make sure it is CORRECT ~ ~ ~ 
+
+// ~ ~ ~ in the ORIGINAL index.js file, there is NOTHING after the TODO 9: comment ~ ~ ~
+
 function moveBodyAToBodyB( bodyA, bodyB)
 {
   // - - - ?? maybe this isn't right
