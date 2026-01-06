@@ -16,6 +16,19 @@ body {
   width: 50px;
   height: 50px;
   position: absolute;
-/*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
-/*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
+  /*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
+  /*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
+}
+
+/* ~ ~ TODO 1 - begin - Create a new rule for #walker. ~ ~  */
+
+#walker {
+  background-color: hotpink;
+  width: 50px;
+  height: 50px;
+  position: absolute;   /* NOTE: In the TODO 1 instructions, this line was left out !!!  */
+                        /* If NOT included, the box stays at 0,0 and NEVER moves!        */
+ 
+  /* left: 100px;   experiment */
+  /* top: 100px;    experiment */
 }
