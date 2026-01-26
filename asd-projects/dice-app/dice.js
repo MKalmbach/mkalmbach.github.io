@@ -1,5 +1,8 @@
 
 
+// ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! 
+// CURRENT PROGRESS - I'm working on TODO 7, but it's not quite right  ! 
+// ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! 
 
 $(document).ready(function () {
 
