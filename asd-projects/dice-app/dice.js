@@ -1,9 +1,5 @@
 
 
-// ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! 
-// CURRENT PROGRESS - I'm working on TODO 7, but it's not quite right  ! 
-// ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! 
-
 $(document).ready(function () {
 
   // Your code goes here
@@ -12,7 +8,7 @@ $(document).ready(function () {
   $("<div>")
     .css("height", 15)
     .css("width", 15)
-    .css("background-color", "hotPink")
+    .css("background-color", "blue")
     .css("position", "absolute")
     .css("top",  43)
     .css("left", 43)
@@ -23,11 +19,10 @@ $(document).ready(function () {
 
 // ~ ~ TODO 7 - Create a DOT helper function - BEGIN 
 //
-//              I'm NOT 100% sure how to do this.  
-//              Hmmmm.... 
-
-//function makeDot(top, left, elementID) // ~ ~ This is my 1st guess for parameter list.
-
+// Finally figured it out. 
+// The parameter list needs to include the dieId.
+// Also, the call to makeDot must look like this: makeDot(43, 43, "#die");
+//
 function makeDot(top, left, dieId) // ~ ~ This is my 2nd guess for parameter list.
 {
       $("<div>")
@@ -35,13 +30,13 @@ function makeDot(top, left, dieId) // ~ ~ This is my 2nd guess for parameter lis
       .css("width", 15)
       .css("background-color", "blue")
       .css("position", "absolute")
-      .css("top", top)                 // location (43,43) makes dot appear more CENTERED
-      .css("left", left)                // still NOT able to make call to makeDot with different coordinates, hmmmm. 
+      .css("top", top)                // location (43,43) makes dot appear more CENTERED
+      .css("left", left)      
       .appendTo(dieId);
 }
 // ~ ~ TODO 7 - Create a DOT helper function - END
 
-// ~ ~ checking work of TODO 7 - - so far, TODO 7 is NOT working!    Hmmmmm. 
+// ~ ~ checking work of TODO 7
 
 // console.log("--- calling makeDot with (43,43) coordinates -- ")
 // makeDot(43, 43, "#die"); // middle middle
@@ -125,6 +120,7 @@ function handleClick()
 //     This tells the browser: 
 //     “When the element with the ID die is clicked, 
 //      run the handleClick function.”
+//
 $("#die").on("click", handleClick);
 
 
